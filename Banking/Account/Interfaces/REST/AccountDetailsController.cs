@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Banking.Account.Domain.Model.Queries;
 using Banking.Account.Domain.Services;
 using Banking.Account.Interfaces.REST.Resources;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Banking.Account.Interfaces.REST;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("/api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 [ProducesResponseType(400)]
 [ProducesResponseType(500)]
 public class AccountDetailsController(IAccountDetailCommandService accountDetailCommandService, IAccountDetailQueryService accountDetailQueryService) : ControllerBase

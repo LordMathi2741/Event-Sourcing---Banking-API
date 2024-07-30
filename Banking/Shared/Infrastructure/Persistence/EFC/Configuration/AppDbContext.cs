@@ -1,6 +1,6 @@
 using Banking.Account.Domain.Model.Aggregates;
-using Banking.Account.Domain.Model.ValueObjects;
 using Banking.Shared.Infrastructure.Persistence.EFC.Extensions;
+using Banking.Transfering.Domain.Model.Aggregates;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +27,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             u.Property(un => un.LastName).HasColumnName("LastName");
         });
         modelBuilder.Entity<AccountDetail>().Property(a => a.CreatedDate).IsRequired();
+        
+        modelBuilder.Entity<Transaction>().HasKey(a => a.Id);
+        modelBuilder.Entity<Transaction>().Property(a => a.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<Transaction>().Property(a => a.Amount).IsRequired();
+        modelBuilder.Entity<Transaction>().Property(a => a.CreatedAt).IsRequired();
+        
+        modelBuilder.Entity<Transaction>().HasOne(t => t.Account).WithMany(a => a.Transactions).HasForeignKey( t => t.AccountId);
         modelBuilder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
 }
