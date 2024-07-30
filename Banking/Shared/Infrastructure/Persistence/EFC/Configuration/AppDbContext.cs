@@ -26,6 +26,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             u.Property(un => un.FirstName).HasColumnName("FirstName");
             u.Property(un => un.LastName).HasColumnName("LastName");
         });
+        modelBuilder.Entity<AccountDetail>().Property(a => a.CreatedDate).IsRequired();
         modelBuilder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
 }
