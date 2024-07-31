@@ -9,7 +9,6 @@ public partial class AccountDetail
     public long Id { get; }
     public string Email { get;  }
     public string Password { get; }
-    public ICollection<Transaction> Transactions { get; }
     public Username Username {  get; }
     public DateTimeOffset CreatedDate { get; }
     public string FullName => Username.FullName;

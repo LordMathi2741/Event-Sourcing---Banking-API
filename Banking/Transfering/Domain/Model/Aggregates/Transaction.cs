@@ -9,8 +9,6 @@ public partial class Transaction
     public double Amount { get; }
     public long AccountId { get; }
     
-    public AccountDetail Account { get; }
-    
     public DateTimeOffset CreatedAt { get; }
 }
 

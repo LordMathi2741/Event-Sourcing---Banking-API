@@ -32,8 +32,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         modelBuilder.Entity<Transaction>().Property(a => a.Id).ValueGeneratedOnAdd();
         modelBuilder.Entity<Transaction>().Property(a => a.Amount).IsRequired();
         modelBuilder.Entity<Transaction>().Property(a => a.CreatedAt).IsRequired();
-        
-        modelBuilder.Entity<Transaction>().HasOne(t => t.Account).WithMany(a => a.Transactions).HasForeignKey( t => t.AccountId);
+
+        modelBuilder.Entity<Transaction>().HasOne<AccountDetail>().WithMany().HasForeignKey(t => t.AccountId);
         modelBuilder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
 }
