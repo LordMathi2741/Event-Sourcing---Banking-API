@@ -1,6 +1,8 @@
 using Banking.Account.Domain.Model.Aggregates;
+using Banking.Account.Domain.Model.Entities;
 using Banking.Shared.Infrastructure.Persistence.EFC.Extensions;
 using Banking.Transfering.Domain.Model.Aggregates;
+using Banking.Transfering.Domain.Model.Entities;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +34,20 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         modelBuilder.Entity<Transaction>().Property(a => a.Id).ValueGeneratedOnAdd();
         modelBuilder.Entity<Transaction>().Property(a => a.Amount).IsRequired();
         modelBuilder.Entity<Transaction>().Property(a => a.CreatedAt).IsRequired();
+        
+        modelBuilder.Entity<AccountOperation>().HasKey(a => a.Id);
+        modelBuilder.Entity<AccountOperation>().Property(a => a.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<AccountOperation>().Property(a => a.Operation).IsRequired();
+        modelBuilder.Entity<AccountOperation>().Property(a => a.CreatedAt).IsRequired();
+        
+        modelBuilder.Entity<TransactionState>().HasKey(a => a.Id);
+        modelBuilder.Entity<TransactionState>().Property(a => a.Id).ValueGeneratedOnAdd();
+        modelBuilder.Entity<TransactionState>().Property(a => a.Operation).IsRequired();
+        modelBuilder.Entity<TransactionState>().Property(a => a.CreatedAt).IsRequired();
+
+        modelBuilder.Entity<Transaction>().HasMany<TransactionState>().WithOne().HasForeignKey(t => t.TransactionId);
+
+        modelBuilder.Entity<AccountDetail>().HasMany<AccountOperation>().WithOne().HasForeignKey(a => a.AccountId);
 
         modelBuilder.Entity<Transaction>().HasOne<AccountDetail>().WithMany().HasForeignKey(t => t.AccountId);
         modelBuilder.UseSnakeCaseWithPluralizedTableNamingConvention();

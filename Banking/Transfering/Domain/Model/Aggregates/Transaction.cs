@@ -1,6 +1,4 @@
-using Banking.Account.Domain.Model.Aggregates;
 using Banking.Transfering.Domain.Model.Commands;
-
 namespace Banking.Transfering.Domain.Model.Aggregates;
 
 public partial class Transaction

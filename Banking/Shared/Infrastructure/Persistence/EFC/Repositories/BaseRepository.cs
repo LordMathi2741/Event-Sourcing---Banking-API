@@ -12,6 +12,8 @@ public class BaseRepository<TEntity>(AppDbContext context) : IBaseRepository<TEn
     {
         return await context.Set<TEntity>().ToListAsync();
     }
+    
+    
 
     public async Task<TEntity?> GetByIdAsync(long id)
     {

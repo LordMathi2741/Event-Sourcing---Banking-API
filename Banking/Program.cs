@@ -1,4 +1,5 @@
 using Banking.Account.Application.CommandServices;
+using Banking.Account.Application.EventServices;
 using Banking.Account.Application.QueryServices;
 using Banking.Account.Domain.Repositories;
 using Banking.Account.Domain.Services;
@@ -10,6 +11,7 @@ using Banking.Shared.Infrastructure.Persistence.EFC.Configuration;
 using Banking.Shared.Infrastructure.Persistence.EFC.Repositories;
 using Banking.Shared.Interfaces.ASP.Configuration;
 using Banking.Transfering.Application.CommandServices;
+using Banking.Transfering.Application.EventServices;
 using Banking.Transfering.Application.OutboundServices.ACL;
 using Banking.Transfering.Application.OutboundServices.ACL.Services;
 using Banking.Transfering.Application.QueryServices;
@@ -90,10 +92,15 @@ builder.Services.AddScoped<IAccountDetailRepository,AccountDetailRepository>();
 builder.Services.AddScoped<IAccountDetailCommandService,AccountDetailCommandService>();
 builder.Services.AddScoped<IAccountDetailQueryService,AccountDetailQueryService>();
 builder.Services.AddScoped<IAccountContextFacade, AccountContextFacade>();
+builder.Services.AddScoped<IAccountDetailEventService, AccountDetailEventService>();
+
+builder.Services.AddScoped<IAccountOperationRepository,AccountOperationRepository>();
+builder.Services.AddScoped<ITransactionStateRepository,TransactionStateRepository>();
 
 builder.Services.AddScoped<ITransactionRepository,TransactionRepository>();
 builder.Services.AddScoped<ITransactionCommandService,TransactionCommandService>();
 builder.Services.AddScoped<ITransactionQueryService,TransactionQueryService>();
+builder.Services.AddScoped<ITransactionEventService, TransactionEventService>();
 builder.Services.AddScoped<IExternalAccountService, ExternalAccountService>();
 
 
